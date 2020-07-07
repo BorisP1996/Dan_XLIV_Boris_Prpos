@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using Zadatak_1.Command;
@@ -19,6 +17,7 @@ namespace Zadatak_1.ViewModel
         public AdminViewModel(Admin adminOpen)
         {
             admin = adminOpen;
+            //geting data from database to list
             OrderList = GetOrders();
         }
 
@@ -64,12 +63,14 @@ namespace Zadatak_1.ViewModel
         {
             try
             {
+                //deleting order
                 tblOrder orderToDelete = (from r in context.tblOrders where r.OrderID == Order.OrderID select r).FirstOrDefault();
                 MessageBoxResult messageBoxResult = MessageBox.Show("Are you sure? Order will be deleted", "Delete Confirmation", MessageBoxButton.YesNo);
                 if (messageBoxResult==MessageBoxResult.Yes)
                 {
                     context.tblOrders.Remove(orderToDelete);
                     context.SaveChanges();
+                    //refreshing list afterwards
                     OrderList = GetOrders();
                 }
               
@@ -103,7 +104,9 @@ namespace Zadatak_1.ViewModel
                 return reject;
             }
         }
-
+        /// <summary>
+        /// Changes status to rejected
+        /// </summary>
         private void RejectExecute()
         {
             try
@@ -146,7 +149,9 @@ namespace Zadatak_1.ViewModel
                 return approve;
             }
         }
-
+        /// <summary>
+        /// changes status to approved
+        /// </summary>
         private void ApproveExecute()
         {
             try
@@ -197,6 +202,10 @@ namespace Zadatak_1.ViewModel
         {
             return true;
         }
+        /// <summary>
+        /// method for taking orders from database to list and than showing that list in datagrid
+        /// </summary>
+        /// <returns></returns>
         private List<tblOrder> GetOrders()
         {
             List <tblOrder> list = new List<tblOrder>();

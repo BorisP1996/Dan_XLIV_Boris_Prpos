@@ -17,7 +17,8 @@
                  Text="{Binding Username,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"
                  VerticalAlignment="Top"
                  Width="120"
-                 Margin="220,45,0,0" />
+                 Margin="220,45,0,0"
+                 MaxLength="13"/>
         <Label Content="Username"
                HorizontalAlignment="Left"
                Margin="57,45,0,0"

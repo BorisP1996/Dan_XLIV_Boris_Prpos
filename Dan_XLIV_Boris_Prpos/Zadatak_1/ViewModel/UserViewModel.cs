@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using Zadatak_1.Command;
@@ -14,15 +12,18 @@ namespace Zadatak_1.ViewModel
 {
     class UserViewModel: ViewModelBase
     {
+        //Creating object that will conect Model and ViewModel (using Entity Framework)
        static Entity context = new Entity();
        User uvm;
-        MainWindowViewModel mvvm = new MainWindowViewModel();
+       MainWindowViewModel mvvm = new MainWindowViewModel();
 
         public UserViewModel(User uvmOpen,string username)
         {
             uvm = uvmOpen;
             tblorder = new tblOrder();
+            //taking JMBG that was forwarded from login form
             tblorder.CustomerJMBG = username;
+            //filling list with data from database
             OrderList = GetOrders();
         }
         private tblOrder tblorder;
@@ -116,6 +117,7 @@ namespace Zadatak_1.ViewModel
                 OnPropertyChanged("SpecialPizza");
             }
         }
+        //Taking values that represent price for every meal in database
         static  tblPrice bigPizzaMeal = (from r in context.tblPrices where r.Meal == "BigPizza" select r).First();
         int bigpizzaCost = bigPizzaMeal.Price.GetValueOrDefault();
 
@@ -131,6 +133,7 @@ namespace Zadatak_1.ViewModel
         static  tblPrice specialPizzaMeal = (from r in context.tblPrices where r.Meal == "SpecialPizza" select r).First();
         int speicalpizzaCost = specialPizzaMeal.Price.GetValueOrDefault();
 
+        //property that represents total cost =>based on input from every text box
         private int totalAmount;
         public int TotalAmount
         {
@@ -157,19 +160,24 @@ namespace Zadatak_1.ViewModel
                 return order;
             }
         }
+        //method that saves order into database
         private void OrderExecute()
         {
             try
             {
             tblOrder newOrder = new tblOrder();
+                //values from text boxes
             newOrder.BigPizza = BigPizza;
             newOrder.SmallPizza = SmallPizza;
             newOrder.MediumPizza = MediumPizza;
             newOrder.FamilyPizza = FamilyPizza;
             newOrder.SpecialPizza = SpecialPizza;
+             //date and time
             string text = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture);
             newOrder.OrderDate = text;
+             //jmbg that was forwarded into constructor (from login window)
             newOrder.CustomerJMBG = tblorder.CustomerJMBG;
+                //status automaticaly set to waiting
             newOrder.OrderStatus = "Waiting";
             newOrder.TotalAmount = TotalAmount;
 
@@ -195,6 +203,7 @@ namespace Zadatak_1.ViewModel
                 return true;
             }
         }
+        //method checks if every textbox is empty=>if true=>cant save
         private bool EverythingEmpty()
         {
             if (BigPizza==0 && MediumPizza==0 && SmallPizza==0 && SpecialPizza==0 && FamilyPizza==0)
@@ -226,37 +235,10 @@ namespace Zadatak_1.ViewModel
         {
             return true;
         }
-        private ICommand update;
-        public ICommand Update
-        {
-            get
-            {
-                if (update==null)
-                {
-                    update = new RelayCommand(param => UpdateExecute(), param => CanUpdateExecute());
-                }
-                return update;
-            }
-        }
-        private void UpdateExecute()
-        {
-            try
-            {
-                OrderList = GetOrders();
-                MessageBox.Show("Orders are updated");
-            }
-            catch (Exception ex)
-            {
-
-                MessageBox.Show(ex.ToString());
-            }
-        }
-
-        private bool CanUpdateExecute()
-        {
-            return true;
-        }
-
+        /// <summary>
+        /// Method takes rows from sql and puts them into list
+        /// </summary>
+        /// <returns></returns>
         private List<tblOrder> GetOrders()
         {
             List<tblOrder> list = new List<tblOrder>();

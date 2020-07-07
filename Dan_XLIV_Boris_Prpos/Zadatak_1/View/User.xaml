@@ -116,7 +116,7 @@
             </Grid.ColumnDefinitions>
             <DataGrid Name="DataGridUsers"
                       ItemsSource="{Binding OrderList, UpdateSourceTrigger=PropertyChanged}"
-                      SelectedItem="{Binding Order, UpdateSourceTrigger=PropertyChanged,Mode=OneWay}"
+                      SelectedItem="{Binding tblOrder, UpdateSourceTrigger=PropertyChanged,Mode=OneWay}"
                       IsReadOnly="True"
                       HeadersVisibility="Column"
                       AutoGenerateColumns="False"
@@ -156,12 +156,7 @@
                Margin="645,10,0,0"
                Width="223"
                FontSize="26"
-               FontWeight="Heavy"/>
-        <Button Content="Update"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Top"
-                Width="75"
-                Margin="695,275,0,0"
-                Command="{Binding Update,UpdateSourceTrigger=PropertyChanged}"/>
+               FontWeight="Heavy" />
+       
     </Grid>
 </Window>
