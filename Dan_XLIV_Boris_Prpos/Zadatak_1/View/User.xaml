@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="User"
         Height="450"
-        Width="800">
+        Width="1500">
     <Grid>
         <Label Content="Small pizza  (350 rsd)"
                HorizontalAlignment="Left"
@@ -44,8 +44,8 @@
                  Margin="195,28,0,0"
                  PreviewTextInput="NumbersOnlyTextBox"
                  TextChanged="TbSmall_TextChanged" />
-        <TextBox Name="tbMedium" 
-                HorizontalAlignment="Left"
+        <TextBox Name="tbMedium"
+                 HorizontalAlignment="Left"
                  Height="23"
                  TextWrapping="Wrap"
                  Text="{Binding MediumPizza, UpdateSourceTrigger=PropertyChanged}"
@@ -55,7 +55,7 @@
                  PreviewTextInput="NumbersOnlyTextBox"
                  TextChanged="TbMedium_TextChanged" />
         <TextBox Name="tbBig"
-             HorizontalAlignment="Left"
+                 HorizontalAlignment="Left"
                  Height="23"
                  TextWrapping="Wrap"
                  Text="{Binding BigPizza,UpdateSourceTrigger=PropertyChanged}"
@@ -64,8 +64,8 @@
                  Margin="195,119,0,0"
                  PreviewTextInput="NumbersOnlyTextBox"
                  TextChanged="TbBig_TextChanged" />
-        <TextBox Name="tbFamily" 
-                HorizontalAlignment="Left"
+        <TextBox Name="tbFamily"
+                 HorizontalAlignment="Left"
                  Height="23"
                  TextWrapping="Wrap"
                  Text="{Binding FamilyPizza,UpdateSourceTrigger=PropertyChanged}"
@@ -74,7 +74,7 @@
                  Margin="195,163,0,0"
                  PreviewTextInput="NumbersOnlyTextBox"
                  TextChanged="TbFamily_TextChanged" />
-        <TextBox Name="tbSpecial"        
+        <TextBox Name="tbSpecial"
                  HorizontalAlignment="Left"
                  Height="23"
                  TextWrapping="Wrap"
@@ -89,25 +89,79 @@
                 VerticalAlignment="Top"
                 Width="75"
                 Margin="50,335,0,0"
-                Command="{Binding Order,UpdateSourceTrigger=PropertyChanged}"/>
+                Command="{Binding Order,UpdateSourceTrigger=PropertyChanged}" />
         <Button Content="Close"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
                 Width="75"
                 Margin="215,335,0,0"
-                Command="{Binding Close,UpdateSourceTrigger=PropertyChanged}"/>
+                Command="{Binding Close,UpdateSourceTrigger=PropertyChanged}" />
         <TextBox HorizontalAlignment="Left"
-                   Margin="195,250,0,0"
-                   TextWrapping="Wrap"
-                   Name="tbTotal"
-                   VerticalAlignment="Top"
-                   Width="120"
-                   Height="30"
-                />
+                 Margin="195,250,0,0"
+                 TextWrapping="Wrap"
+                 Name="tbTotal"
+                 VerticalAlignment="Top"
+                 Width="120"
+                 Height="30" />
         <Label Content="Total amount:"
                HorizontalAlignment="Left"
                VerticalAlignment="Top"
                Margin="65,254,0,0"
                Width="100" />
+        <Grid Height="250"
+              Width="350">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="141*" />
+                <ColumnDefinition Width="49*" />
+            </Grid.ColumnDefinitions>
+            <DataGrid Name="DataGridUsers"
+                      ItemsSource="{Binding OrderList, UpdateSourceTrigger=PropertyChanged}"
+                      SelectedItem="{Binding Order, UpdateSourceTrigger=PropertyChanged,Mode=OneWay}"
+                      IsReadOnly="True"
+                      HeadersVisibility="Column"
+                      AutoGenerateColumns="False"
+                      HorizontalGridLinesBrush="Black"
+                      BorderBrush="Black"
+                      Foreground="Black"
+                      FontWeight="Bold"
+                      Margin="-221,-18,-215,77"
+                      Grid.ColumnSpan="2">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Big Pizza"
+                                        Binding="{Binding BigPizza}" />
+                    <DataGridTextColumn Header="Medium Pizza"
+                                        Binding="{Binding MediumPizza}" />
+                    <DataGridTextColumn Header="Small Pizza"
+                                        Binding="{Binding SmallPizza}" />
+                    <DataGridTextColumn Header="Family Pizza"
+                                        Binding="{Binding FamilyPizza}" />
+                    <DataGridTextColumn  Header="Special Pizza"
+                                         Binding="{Binding SpecialPizza}" />
+                    <DataGridTextColumn  Header="Total price"
+                                         Binding="{Binding TotalAmount}" />
+                    <DataGridTextColumn  Header="Status"
+                                         Binding="{Binding OrderStatus}" />
+                    <DataGridTextColumn  Header="Customer JMBG"
+                                         Binding="{Binding CustomerJMBG}" />
+                    <DataGridTextColumn  Header="Order time"
+                                         Binding="{Binding OrderDate}" />
+                    
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+        <Label Content="Your orders"
+               HorizontalAlignment="Left"
+               VerticalAlignment="Top"
+               RenderTransformOrigin="1.316,0.577"
+               Margin="645,10,0,0"
+               Width="223"
+               FontSize="26"
+               FontWeight="Heavy"/>
+        <Button Content="Update"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Width="75"
+                Margin="695,275,0,0"
+                Command="{Binding Update,UpdateSourceTrigger=PropertyChanged}"/>
     </Grid>
 </Window>

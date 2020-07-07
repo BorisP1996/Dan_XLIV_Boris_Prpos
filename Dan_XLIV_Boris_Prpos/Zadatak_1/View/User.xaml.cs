@@ -25,6 +25,7 @@ namespace Zadatak_1.View
         {
             InitializeComponent();
             this.DataContext = new UserViewModel(this,username);
+            
         }
         private void NumbersOnlyTextBox(object sender, TextCompositionEventArgs e)
         {

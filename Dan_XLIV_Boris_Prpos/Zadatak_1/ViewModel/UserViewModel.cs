@@ -23,6 +23,7 @@ namespace Zadatak_1.ViewModel
             uvm = uvmOpen;
             tblorder = new tblOrder();
             tblorder.CustomerJMBG = username;
+            OrderList = GetOrders();
         }
         private tblOrder tblorder;
         public tblOrder tblOrder
@@ -117,12 +118,16 @@ namespace Zadatak_1.ViewModel
         }
         static  tblPrice bigPizzaMeal = (from r in context.tblPrices where r.Meal == "BigPizza" select r).First();
         int bigpizzaCost = bigPizzaMeal.Price.GetValueOrDefault();
+
         static tblPrice mediumPizzaMeal = (from r in context.tblPrices where r.Meal == "MediumPizza" select r).First();
         int mediumpizzaCost = mediumPizzaMeal.Price.GetValueOrDefault();
+
         static tblPrice smallPizzaMeal = (from r in context.tblPrices where r.Meal == "SmallPizza" select r).First();
         int smallpizzaCost = smallPizzaMeal.Price.GetValueOrDefault();
+
         static tblPrice familyPizzaMeal = (from r in context.tblPrices where r.Meal == "FamilyPizza" select r).First();
         int familypizzaCost = familyPizzaMeal.Price.GetValueOrDefault();
+
         static  tblPrice specialPizzaMeal = (from r in context.tblPrices where r.Meal == "SpecialPizza" select r).First();
         int speicalpizzaCost = specialPizzaMeal.Price.GetValueOrDefault();
 
@@ -170,7 +175,8 @@ namespace Zadatak_1.ViewModel
 
             context.tblOrders.Add(newOrder);
             context.SaveChanges();
-                MessageBox.Show("Order is waiting for approval.");
+            MessageBox.Show("Order is waiting for approval.");
+                OrderList = GetOrders();
             }
             catch (Exception ex)
             {
@@ -219,6 +225,54 @@ namespace Zadatak_1.ViewModel
         private bool CanCloseExecute()
         {
             return true;
+        }
+        private ICommand update;
+        public ICommand Update
+        {
+            get
+            {
+                if (update==null)
+                {
+                    update = new RelayCommand(param => UpdateExecute(), param => CanUpdateExecute());
+                }
+                return update;
+            }
+        }
+        private void UpdateExecute()
+        {
+            try
+            {
+                OrderList = GetOrders();
+                MessageBox.Show("Orders are updated");
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        private bool CanUpdateExecute()
+        {
+            return true;
+        }
+
+        private List<tblOrder> GetOrders()
+        {
+            List<tblOrder> list = new List<tblOrder>();
+
+            list = context.tblOrders.ToList();
+
+            List<tblOrder> ByUser = new List<tblOrder>();
+
+            foreach (tblOrder item in list)
+            {
+                if (item.CustomerJMBG==tblorder.CustomerJMBG)
+                {
+                    ByUser.Add(item);
+                }
+            }
+            return ByUser;
         }
     }
 }

@@ -76,7 +76,7 @@ namespace Zadatak_1.ViewModel
                 }
                 else
                 {
-                    MessageBox.Show("Invalid parametres");
+                    MessageBox.Show("Invalid parametres, Username must be your JMBG");
                 }
             }
             catch (Exception ex)
