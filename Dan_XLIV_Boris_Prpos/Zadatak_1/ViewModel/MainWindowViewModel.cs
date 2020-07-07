@@ -70,7 +70,7 @@ namespace Zadatak_1.ViewModel
                 }
                 else if (Username.Length == 13 && NumbersOnly(Username) == true && Password == "Gost")
                 {
-                    User userView = new User();
+                    User userView = new User(Username);
                     userView.ShowDialog();
                 }
                 else

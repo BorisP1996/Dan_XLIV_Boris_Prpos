@@ -18,10 +18,11 @@ namespace Zadatak_1.ViewModel
        User uvm;
         MainWindowViewModel mvvm = new MainWindowViewModel();
 
-        public UserViewModel(User uvmOpen)
+        public UserViewModel(User uvmOpen,string username)
         {
             uvm = uvmOpen;
             tblorder = new tblOrder();
+            tblorder.CustomerJMBG = username;
         }
         private tblOrder tblorder;
         public tblOrder tblOrder
@@ -163,7 +164,7 @@ namespace Zadatak_1.ViewModel
             newOrder.SpecialPizza = SpecialPizza;
             string text = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture);
             newOrder.OrderDate = text;
-            newOrder.CustomerJMBG = mvvm.Username;
+            newOrder.CustomerJMBG = tblorder.CustomerJMBG;
             newOrder.OrderStatus = "Waiting";
             newOrder.TotalAmount = TotalAmount;
 

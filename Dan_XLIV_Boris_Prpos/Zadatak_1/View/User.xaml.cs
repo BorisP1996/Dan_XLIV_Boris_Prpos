@@ -21,10 +21,10 @@ namespace Zadatak_1.View
     /// </summary>
     public partial class User : Window
     {
-        public User()
+        public User(string username)
         {
             InitializeComponent();
-            this.DataContext = new UserViewModel(this);
+            this.DataContext = new UserViewModel(this,username);
         }
         private void NumbersOnlyTextBox(object sender, TextCompositionEventArgs e)
         {

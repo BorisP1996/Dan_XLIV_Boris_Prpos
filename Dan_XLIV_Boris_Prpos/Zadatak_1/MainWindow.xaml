@@ -14,7 +14,7 @@
         <TextBox HorizontalAlignment="Left"
                  Height="23"
                  TextWrapping="Wrap"
-                 Text="{Binding Username,UpdateSourceTrigger=PropertyChanged}"
+                 Text="{Binding Username,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"
                  VerticalAlignment="Top"
                  Width="120"
                  Margin="220,45,0,0" />
