@@ -66,7 +66,8 @@ namespace Zadatak_1.ViewModel
             {
                 if (Username == "Zaposleni" && Password == "Zaposleni")
                 {
-                    MessageBox.Show("Welcome Zaposleni");
+                    Admin admin = new Admin();
+                    admin.ShowDialog();
                 }
                 else if (Username.Length == 13 && NumbersOnly(Username) == true && Password == "Gost")
                 {

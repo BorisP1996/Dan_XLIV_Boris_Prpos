@@ -170,6 +170,7 @@ namespace Zadatak_1.ViewModel
 
             context.tblOrders.Add(newOrder);
             context.SaveChanges();
+                MessageBox.Show("Order is waiting for approval.");
             }
             catch (Exception ex)
             {
