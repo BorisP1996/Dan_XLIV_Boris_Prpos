@@ -23,9 +23,9 @@ MediumPizza int,
 SmallPizza int,
 FamilyPizza int,
 SpecialPizza int,
-OrderDate nvarchar,
-CustomerJMBG nvarchar,
-OrderStatus nvarchar,
+OrderDate nvarchar (30),
+CustomerJMBG nvarchar (30),
+OrderStatus nvarchar (30),
 TotalAmount int
 )
 
